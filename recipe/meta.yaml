@@ -11,28 +11,39 @@ source:
 
 build:
   noarch: python
-  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [build_type == 'regular']
+  {% if build_type == 'regular' -%}
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  {% endif -%}
   number: 1
 
 requirements:
   host:
-    - python >=3.8,<3.11  # [build_type == 'regular']
-    - python >=3.12  # [build_type == 'empty']
+    {% if build_type == 'regular' -%}
+    - python >=3.8,<3.11
+    {% else %}
+    - python >=3.12
+    {% endif %}
     - poetry-core
     - pip
   run:
-    - python >=3.8.6,<3.11  # [build_type == 'regular']
-    - python >=3.12  # [build_type == 'empty']
+    {% if build_type == 'regular' -%}
+    - python >=3.8.6,<3.11
+    {% else %}
+    - python >=3.12
+    {% endif %}
 
 test:
-  imports:  
-    - backports.strenum  # [build_type == 'regular']
-    - enum  # [build_type == 'empty']
-  commands:  
-    - pip check  # [build_type == 'regular']
-    - python -c "from enum import StrEnum"  # [build_type == 'empty']
-  requires:  
-    - pip  
+  {% if build_type == 'regular' -%}
+  imports:
+    - backports.strenum
+  requires:
+    - pip
+  commands:
+    - pip check
+  {% else -%}
+  commands:
+    - python -c "from enum import StrEnum"
+  {% endif -%}
 
 about:
   home: https://github.com/clbarnes/backports.strenum
