@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/backports.stren
 
 Home: https://github.com/clbarnes/backports.strenum
 
-Package license: EPL-2.0
+Package license: PSF-2.0
 
 Summary: Base class for creating enumerated constants that are also subclasses of str
 
