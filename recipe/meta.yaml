@@ -14,7 +14,7 @@ build:
   {% if build_type == 'regular' %}
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   {% endif %}
-  number: 2
+  number: 3
 
 requirements:
   host:
@@ -29,7 +29,7 @@ requirements:
     - python >=3.8.6,<3.11
     - backports
     {% else %}
-    - python >=3.12
+    - python >=3.11
     {% endif %}
 
 test:
